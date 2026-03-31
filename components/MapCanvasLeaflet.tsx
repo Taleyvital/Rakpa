@@ -21,7 +21,7 @@ export default function MapCanvasLeaflet({
   const initialCenter: [number, number] = center ?? [5.3599517, -4.0082563];
 
   return (
-    // @ts-expect-error - react-leaflet v5 type issue with center prop
+    // @ts-ignore - react-leaflet v5 type issue with center prop
     <MapContainer
       center={initialCenter}
       zoom={13}
