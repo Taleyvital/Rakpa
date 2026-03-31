@@ -51,7 +51,7 @@ export default function RootLayout({
         />
       </head>
       <body className="min-h-full flex flex-col">
-        <AppShell>{children}</AppShell>
+        <ClientLayout>{children}</ClientLayout>
       </body>
     </html>
   );
