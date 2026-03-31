@@ -10,7 +10,7 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
     const timer = setTimeout(() => {
       setIsVisible(false);
       setTimeout(onComplete, 300);
-    }, 2000);
+    }, 8000);
 
     return () => clearTimeout(timer);
   }, [onComplete]);
@@ -39,6 +39,13 @@ export default function SplashScreen({ onComplete }: { onComplete: () => void })
           <div className="w-3 h-3 bg-white rounded-full animate-bounce [animation-delay:-0.15s]"></div>
           <div className="w-3 h-3 bg-white rounded-full animate-bounce"></div>
         </div>
+      </div>
+
+      <div className="absolute bottom-8 left-0 right-0 text-center">
+        <p className="text-white/60 text-sm font-light">
+          Développé par <span className="font-medium text-white/80">Vital Oura</span>
+        </p>
+        <p className="text-white/40 text-xs mt-1">Webey Agency</p>
       </div>
     </div>
   );
