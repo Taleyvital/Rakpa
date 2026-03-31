@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+
+<html class="light" lang="fr"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;900&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "surface-dim": "#dadada",
+              "secondary-fixed": "#c6c6c6",
+              "on-secondary-fixed-variant": "#3b3b3b",
+              "on-tertiary-fixed-variant": "#e2e2e2",
+              "tertiary-fixed-dim": "#474747",
+              "primary-fixed": "#5e5e5e",
+              "on-primary-container": "#ffffff",
+              "secondary": "#5e5e5e",
+              "error-container": "#ffdad6",
+              "surface-tint": "#5e5e5e",
+              "inverse-surface": "#303030",
+              "tertiary-container": "#747474",
+              "background": "#f9f9f9",
+              "surface": "#f9f9f9",
+              "primary-container": "#3b3b3b",
+              "tertiary-fixed": "#5e5e5e",
+              "surface-container-lowest": "#ffffff",
+              "on-secondary-fixed": "#1b1b1b",
+              "on-surface": "#1b1b1b",
+              "surface-container": "#eeeeee",
+              "secondary-container": "#d4d4d4",
+              "on-tertiary-container": "#ffffff",
+              "on-primary-fixed-variant": "#e2e2e2",
+              "outline-variant": "#c6c6c6",
+              "on-background": "#1b1b1b",
+              "on-surface-variant": "#474747",
+              "inverse-on-surface": "#f1f1f1",
+              "inverse-primary": "#c6c6c6",
+              "secondary-fixed-dim": "#ababab",
+              "outline": "#777777",
+              "surface-bright": "#f9f9f9",
+              "primary": "#000000",
+              "on-tertiary": "#e2e2e2",
+              "on-error": "#ffffff",
+              "surface-container-high": "#e8e8e8",
+              "surface-container-highest": "#e2e2e2",
+              "on-secondary-container": "#1b1b1b",
+              "primary-fixed-dim": "#474747",
+              "on-secondary": "#ffffff",
+              "tertiary": "#3b3b3b",
+              "error": "#ba1a1a",
+              "on-primary-fixed": "#ffffff",
+              "on-primary": "#e2e2e2",
+              "surface-container-low": "#f3f3f3",
+              "on-tertiary-fixed": "#ffffff",
+              "surface-variant": "#e2e2e2",
+              "on-error-container": "#410002"
+            },
+            fontFamily: {
+              "headline": ["Inter"],
+              "body": ["Inter"],
+              "label": ["Inter"]
+            },
+            borderRadius: {"DEFAULT": "1rem", "lg": "2rem", "xl": "3rem", "full": "9999px"},
+          },
+        },
+      }
+    </script>
+<style>
+        body { font-family: 'Inter', sans-serif; }
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 300, 'GRAD' 0, 'opsz' 24;
+        }
+        /* Custom scrollbar suppression for the filter chips */
+        .hide-scrollbar::-webkit-scrollbar { display: none; }
+        .hide-scrollbar { -ms-overflow-style: none; scrollbar-width: none; }
+    </style>
+<style>
+    body {
+      min-height: max(884px, 100dvh);
+    }
+  </style>
+  </head>
+<body class="bg-background text-on-background antialiased overflow-hidden h-screen w-screen">
+<!-- MAP CANVAS (Full Screen) -->
+<div class="fixed inset-0 z-0">
+<div class="w-full h-full grayscale opacity-40 mix-blend-multiply bg-surface-container-highest">
+<img alt="Abidjan city map silver style" class="w-full h-full object-cover" data-alt="Detailed silver-styled urban map with minimalist street lines, light grey tones, and monochromatic aesthetic of a dense city grid." data-location="Abidjan" src="https://lh3.googleusercontent.com/aida-public/AB6AXuCN7Pq8XeRt1ISx3IuJyjxpMtqasyE7inFBOem4PUENEleXIjQVm8gSY3Xv1KOVL_hM1Mm_l3Guti-D9l4fchp4gIEu-iAp_c8d0UTdjVdOKli3ZCTYboN0JGuURHugusewUW2iBSApItqTh5JPq0Rxvvo3KPYP0m1yYjpycp4C-1y9mD9VHHIvD_FLQGoTYxN32FoqDpEhUSAYUgmQlzqhFw-x_kWbSUv5WKNZw1m9cURf-LKDAh8Czk0__KtHF5eRaw2zrtLJ5ms"/>
+</div>
+<!-- Subtle Map Overlays for 'Premium' feel -->
+<div class="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
+</div>
+<!-- SHARED COMPONENT: TopAppBar -->
+<header class="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-black/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded-full bg-black flex items-center justify-center overflow-hidden border-2 border-white shadow-sm">
+<img alt="User profile" class="w-full h-full object-cover" data-alt="Close-up professional portrait of a young man with a neutral expression against a minimal grey background." src="https://lh3.googleusercontent.com/aida-public/AB6AXuAeHuMFKF0DVaBJRw51FpqCz_UloPdtaZWdY2eB5hea5Pvbbk8bFXoKg1HA0gbOW-vZ7z4mwkbtW-xEs_TN6O6LnvcfPyaHq0y4oT-YzuB3NitYOh0W36PMUCCtqf0o8c1M3c1RKIOu4NfLW3wSVeHfIJsjNeMs72IZoBL5Mt8U2m1E4baKovTveomG2V-H7GIq654ezfeIQyenXNgwS2lDRbJANLsDLTbWHarYassggfzUXHV17S9i8KvnRNTaujuLeDreEU4oYHU"/>
+</div>
+<h1 class="font-bold tracking-tight text-2xl Inter text-black dark:text-white">Rakpa</h1>
+</div>
+<button class="material-symbols-outlined text-black dark:text-white text-2xl hover:opacity-70 transition-opacity scale-95 active:duration-150">search</button>
+</header>
+<!-- FLOATING SEARCH UI -->
+<main class="relative z-10 pt-24 px-6">
+<div class="max-w-xl mx-auto space-y-6">
+<!-- Floating Search Bar -->
+<div class="bg-white/90 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.06)] p-2 flex items-center gap-3">
+<div class="pl-4 text-primary">
+<span class="material-symbols-outlined">search</span>
+</div>
+<input class="bg-transparent border-none focus:ring-0 w-full text-lg font-medium placeholder:text-gray-400 py-3" placeholder="Où vas-tu, djaa ?" type="text"/>
+<div class="pr-2">
+<button class="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors">
+<span class="material-symbols-outlined text-primary">mic</span>
+</button>
+</div>
+</div>
+<!-- Horizontal Filter Chips -->
+<div class="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
+<button class="px-6 py-2.5 rounded-full bg-black text-white font-bold text-sm whitespace-nowrap transition-all active:scale-95">Tout</button>
+<button class="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">Gbaka</button>
+<button class="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">Sotra</button>
+<button class="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">Wôrô-wôrô</button>
+</div>
+</div>
+</main>
+<!-- ASYMMETRIC CONTENT CARD (Bento Style) -->
+<div class="fixed bottom-32 left-6 right-6 z-10 flex flex-col md:flex-row gap-4 max-w-4xl mx-auto md:items-end">
+<div class="bg-white/90 backdrop-blur-2xl p-6 rounded-lg shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex-1">
+<div class="flex justify-between items-start mb-4">
+<div>
+<span class="text-[10px] font-medium uppercase tracking-widest text-gray-500 mb-1 block">Prochain départ</span>
+<h3 class="text-xl font-bold tracking-tight">Express 102 — Plateau</h3>
+</div>
+<span class="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">4 min</span>
+</div>
+<div class="flex items-center gap-4 text-sm text-gray-600">
+<div class="flex -space-x-2">
+<div class="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[10px] font-bold">12</div>
+<div class="w-6 h-6 rounded-full bg-gray-300 border-2 border-white"></div>
+</div>
+<span>Forte affluence prévue</span>
+</div>
+</div>
+<!-- Small stats card -->
+<div class="bg-black text-white p-6 rounded-lg shadow-xl w-full md:w-48 aspect-square flex flex-col justify-between">
+<span class="material-symbols-outlined text-3xl font-light">bolt</span>
+<div>
+<div class="text-3xl font-bold tracking-tighter leading-none">2.4</div>
+<div class="text-[10px] font-medium uppercase tracking-widest opacity-60">KM PROCHES</div>
+</div>
+</div>
+</div>
+<!-- CONTEXTUAL FAB -->
+<button class="fixed bottom-28 right-6 z-50 w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all">
+<span class="material-symbols-outlined text-3xl">my_location</span>
+</button>
+<!-- SHARED COMPONENT: BottomNavBar -->
+<nav class="fixed bottom-0 w-full z-50 pb-safe bg-white/90 dark:bg-black/90 backdrop-blur-2xl flex justify-around items-center h-20 px-8 w-full shadow-[0_-12px_32px_rgba(0,0,0,0.06)]">
+<!-- Active: Map/Explore -->
+<a class="flex flex-col items-center justify-center text-black dark:text-white scale-110 transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined" style="font-variation-settings: 'FILL' 1;">map</span>
+<span class="text-[10px] font-medium uppercase tracking-widest Inter mt-1">Explore</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">directions_transit</span>
+<span class="text-[10px] font-medium uppercase tracking-widest Inter mt-1">Transits</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">traffic</span>
+<span class="text-[10px] font-medium uppercase tracking-widest Inter mt-1">Trafic</span>
+</a>
+<a class="flex flex-col items-center justify-center text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out" href="#">
+<span class="material-symbols-outlined">person</span>
+<span class="text-[10px] font-medium uppercase tracking-widest Inter mt-1">Profil</span>
+</a>
+</nav>
+</body></html>

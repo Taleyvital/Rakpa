@@ -1,0 +1,41 @@
+[
+  {
+    "id": "express-sotra",
+    "title": "Express Sotra",
+    "subtitle": "Ligne 82 • Direct",
+    "badge": "Rapide",
+    "icon": "directions_transit",
+    "price": "500 FCFA",
+    "priceOld": "700 FCFA",
+    "duration": "25 min",
+    "frequency": "Départ toutes les 10 min",
+    "from": "Yopougon",
+    "to": "Plateau"
+  },
+  {
+    "id": "bus-classique",
+    "title": "Bus Classique",
+    "subtitle": "Ligne 27 • 4 Arrêts",
+    "badge": "Moins cher",
+    "icon": "directions_bus",
+    "price": "300 FCFA",
+    "priceOld": null,
+    "duration": "45 min",
+    "frequency": "Départ immédiat",
+    "from": "Yopougon",
+    "to": "Plateau"
+  },
+  {
+    "id": "woro-woro",
+    "title": "Woro-Woro",
+    "subtitle": "Collectif • Rapide",
+    "badge": null,
+    "icon": "directions_car",
+    "price": "700 FCFA",
+    "priceOld": null,
+    "duration": "20 min",
+    "frequency": "Selon trafic",
+    "from": "Yopougon",
+    "to": "Plateau"
+  }
+]

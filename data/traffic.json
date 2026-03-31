@@ -1,0 +1,33 @@
+{
+  "headline": "Trafic Modéré",
+  "delayPercent": "24%",
+  "axes": [
+    {
+      "id": "vge",
+      "code": "VGE",
+      "name": "Boulevard VGE",
+      "path": "Marcory ↔ Treichville",
+      "status": "Fluide",
+      "congestionPercent": 15,
+      "eta": "8 min"
+    },
+    {
+      "id": "pdg",
+      "code": "PdG",
+      "name": "Pont de Gaulle",
+      "path": "Plateau ↔ Treichville",
+      "status": "Bloqué",
+      "congestionPercent": 92,
+      "eta": "45 min"
+    },
+    {
+      "id": "adn",
+      "code": "ADN",
+      "name": "Autoroute du Nord",
+      "path": "Yopougon ↔ Adjamé",
+      "status": "Ralentissement",
+      "congestionPercent": 55,
+      "eta": "22 min"
+    }
+  ]
+}
