@@ -22,7 +22,7 @@ export default function MapCanvasLeaflet({
 
   return (
     <MapContainer
-      center={initialCenter}
+      center={initialCenter as any}
       zoom={13}
       zoomControl={false}
       attributionControl={true}
