@@ -1,0 +1,189 @@
+{
+  "abobo": {
+    "gbaka": [
+      { "id": "gb-ab-adj", "ligne": "Abobo — Adjamé", "price": "200 FCFA", "duration": "25 min", "frequency": "Très fréquent" },
+      { "id": "gb-ab-yop", "ligne": "Abobo — Yopougon", "price": "250 FCFA", "duration": "40 min", "frequency": "Fréquent" },
+      { "id": "gb-ab-pla", "ligne": "Abobo — Plateau", "price": "300 FCFA", "duration": "50 min", "frequency": "Régulier" }
+    ],
+    "woro-woro": [
+      { "id": "ww-ab-adj", "ligne": "Abobo — Adjamé", "price": "300 FCFA", "duration": "20 min", "frequency": "Selon trafic" },
+      { "id": "ww-ab-coc", "ligne": "Abobo — Cocody", "price": "400 FCFA", "duration": "35 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-ab-pla", "ligne": "Ligne 36 — Abobo → Plateau", "price": "500 FCFA", "duration": "55 min", "frequency": "Toutes les 20 min" },
+      { "id": "bs-ab-adj", "ligne": "Ligne 18 — Abobo → Adjamé", "price": "300 FCFA", "duration": "30 min", "frequency": "Toutes les 15 min" }
+    ]
+  },
+  "adjame": {
+    "gbaka": [
+      { "id": "gb-adj-yop", "ligne": "Adjamé — Yopougon", "price": "200 FCFA", "duration": "30 min", "frequency": "Très fréquent" },
+      { "id": "gb-adj-ab",  "ligne": "Adjamé — Abobo",    "price": "200 FCFA", "duration": "25 min", "frequency": "Très fréquent" },
+      { "id": "gb-adj-coc", "ligne": "Adjamé — Cocody",   "price": "250 FCFA", "duration": "20 min", "frequency": "Fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-adj-pla", "ligne": "Adjamé — Plateau",    "price": "350 FCFA", "duration": "15 min", "frequency": "Selon trafic" },
+      { "id": "ww-adj-tre", "ligne": "Adjamé — Treichville","price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-adj-pla", "ligne": "Ligne 07 — Adjamé → Plateau",    "price": "500 FCFA", "duration": "25 min", "frequency": "Toutes les 10 min" },
+      { "id": "bs-adj-yop", "ligne": "Ligne 22 — Adjamé → Yopougon",   "price": "500 FCFA", "duration": "35 min", "frequency": "Toutes les 20 min" }
+    ]
+  },
+  "attecoubbe": {
+    "gbaka": [
+      { "id": "gb-att-yop", "ligne": "Attécoubé — Yopougon", "price": "150 FCFA", "duration": "15 min", "frequency": "Très fréquent" },
+      { "id": "gb-att-adj", "ligne": "Attécoubé — Adjamé",   "price": "200 FCFA", "duration": "20 min", "frequency": "Fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-att-pla", "ligne": "Attécoubé — Plateau", "price": "400 FCFA", "duration": "30 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-att-pla", "ligne": "Ligne 11 — Attécoubé → Plateau", "price": "500 FCFA", "duration": "40 min", "frequency": "Toutes les 25 min" }
+    ]
+  },
+  "cocody": {
+    "gbaka": [
+      { "id": "gb-coc-adj", "ligne": "Cocody — Adjamé",  "price": "250 FCFA", "duration": "20 min", "frequency": "Fréquent" },
+      { "id": "gb-coc-pla", "ligne": "Cocody — Plateau", "price": "200 FCFA", "duration": "15 min", "frequency": "Fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-coc-pla", "ligne": "Cocody — Plateau",    "price": "350 FCFA", "duration": "12 min", "frequency": "Selon trafic" },
+      { "id": "ww-coc-mar", "ligne": "Cocody — Marcory",    "price": "450 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-coc-bin", "ligne": "Cocody — Bingerville","price": "500 FCFA", "duration": "30 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-coc-pla", "ligne": "Ligne 03 — Cocody → Plateau", "price": "500 FCFA", "duration": "20 min", "frequency": "Toutes les 10 min" },
+      { "id": "bs-coc-tre", "ligne": "Ligne 55 — Cocody → Treichville", "price": "500 FCFA", "duration": "30 min", "frequency": "Toutes les 20 min" }
+    ]
+  },
+  "koumassi": {
+    "gbaka": [
+      { "id": "gb-kou-tre", "ligne": "Koumassi — Treichville", "price": "150 FCFA", "duration": "15 min", "frequency": "Très fréquent" },
+      { "id": "gb-kou-mar", "ligne": "Koumassi — Marcory",     "price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-kou-pla", "ligne": "Koumassi — Plateau",  "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-kou-adj", "ligne": "Koumassi — Adjamé",   "price": "500 FCFA", "duration": "35 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-kou-pla", "ligne": "Ligne 14 — Koumassi → Plateau",    "price": "500 FCFA", "duration": "30 min", "frequency": "Toutes les 15 min" },
+      { "id": "bs-kou-adj", "ligne": "Ligne 29 — Koumassi → Adjamé",     "price": "500 FCFA", "duration": "45 min", "frequency": "Toutes les 20 min" }
+    ]
+  },
+  "marcory": {
+    "gbaka": [
+      { "id": "gb-mar-tre", "ligne": "Marcory — Treichville", "price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" },
+      { "id": "gb-mar-kou", "ligne": "Marcory — Koumassi",    "price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" },
+      { "id": "gb-mar-pla", "ligne": "Marcory — Plateau",     "price": "250 FCFA", "duration": "20 min", "frequency": "Fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-mar-pla", "ligne": "Marcory — Plateau", "price": "350 FCFA", "duration": "18 min", "frequency": "Selon trafic" },
+      { "id": "ww-mar-coc", "ligne": "Marcory — Cocody",  "price": "450 FCFA", "duration": "25 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-mar-pla", "ligne": "Ligne 16 — Marcory → Plateau", "price": "500 FCFA", "duration": "25 min", "frequency": "Toutes les 15 min" }
+    ]
+  },
+  "plateau": {
+    "gbaka": [
+      { "id": "gb-pla-yop", "ligne": "Plateau — Yopougon",   "price": "300 FCFA", "duration": "35 min", "frequency": "Fréquent" },
+      { "id": "gb-pla-adj", "ligne": "Plateau — Adjamé",     "price": "200 FCFA", "duration": "15 min", "frequency": "Très fréquent" },
+      { "id": "gb-pla-coc", "ligne": "Plateau — Cocody",     "price": "200 FCFA", "duration": "15 min", "frequency": "Fréquent" },
+      { "id": "gb-pla-tre", "ligne": "Plateau — Treichville","price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-pla-yop", "ligne": "Plateau — Yopougon",  "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-pla-coc", "ligne": "Plateau — Cocody",    "price": "300 FCFA", "duration": "12 min", "frequency": "Selon trafic" },
+      { "id": "ww-pla-ab",  "ligne": "Plateau — Abobo",     "price": "500 FCFA", "duration": "40 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-pla-yop", "ligne": "Ligne 82 — Plateau → Yopougon",    "price": "500 FCFA", "duration": "40 min", "frequency": "Toutes les 10 min" },
+      { "id": "bs-pla-ab",  "ligne": "Ligne 36 — Plateau → Abobo",       "price": "500 FCFA", "duration": "55 min", "frequency": "Toutes les 20 min" },
+      { "id": "bs-pla-pb",  "ligne": "Ligne 62 — Plateau → Port-Bouët",  "price": "500 FCFA", "duration": "45 min", "frequency": "Toutes les 25 min" }
+    ]
+  },
+  "port-bouet": {
+    "gbaka": [
+      { "id": "gb-pb-tre", "ligne": "Port-Bouët — Treichville", "price": "200 FCFA", "duration": "20 min", "frequency": "Fréquent" },
+      { "id": "gb-pb-mar", "ligne": "Port-Bouët — Marcory",     "price": "200 FCFA", "duration": "20 min", "frequency": "Fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-pb-pla", "ligne": "Port-Bouët — Plateau",  "price": "500 FCFA", "duration": "35 min", "frequency": "Selon trafic" },
+      { "id": "ww-pb-tre", "ligne": "Port-Bouët — Treichville","price": "350 FCFA","duration": "18 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-pb-pla", "ligne": "Ligne 62 — Port-Bouët → Plateau", "price": "500 FCFA", "duration": "45 min", "frequency": "Toutes les 25 min" }
+    ]
+  },
+  "treichville": {
+    "gbaka": [
+      { "id": "gb-tre-pla", "ligne": "Treichville — Plateau",  "price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" },
+      { "id": "gb-tre-adj", "ligne": "Treichville — Adjamé",   "price": "250 FCFA", "duration": "20 min", "frequency": "Fréquent" },
+      { "id": "gb-tre-mar", "ligne": "Treichville — Marcory",  "price": "150 FCFA", "duration": "10 min", "frequency": "Très fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-tre-yop", "ligne": "Treichville — Yopougon", "price": "500 FCFA", "duration": "30 min", "frequency": "Selon trafic" },
+      { "id": "ww-tre-coc", "ligne": "Treichville — Cocody",   "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-tre-yop", "ligne": "Ligne 27 — Treichville → Yopougon", "price": "500 FCFA", "duration": "40 min", "frequency": "Toutes les 15 min" },
+      { "id": "bs-tre-ab",  "ligne": "Ligne 41 — Treichville → Abobo",    "price": "500 FCFA", "duration": "50 min", "frequency": "Toutes les 20 min" }
+    ]
+  },
+  "yopougon": {
+    "gbaka": [
+      { "id": "gb-yop-adj", "ligne": "Yopougon — Adjamé",  "price": "200 FCFA", "duration": "30 min", "frequency": "Très fréquent" },
+      { "id": "gb-yop-pla", "ligne": "Yopougon — Plateau", "price": "300 FCFA", "duration": "40 min", "frequency": "Fréquent" },
+      { "id": "gb-yop-att", "ligne": "Yopougon — Attécoubé","price": "150 FCFA","duration": "15 min", "frequency": "Très fréquent" }
+    ],
+    "woro-woro": [
+      { "id": "ww-yop-pla", "ligne": "Yopougon — Plateau", "price": "500 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-yop-adj", "ligne": "Yopougon — Adjamé",  "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-yop-coc", "ligne": "Yopougon — Cocody",  "price": "600 FCFA", "duration": "40 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-yop-pla", "ligne": "Ligne 82 — Yopougon → Plateau",  "price": "500 FCFA", "duration": "40 min", "frequency": "Toutes les 10 min" },
+      { "id": "bs-yop-adj", "ligne": "Ligne 22 — Yopougon → Adjamé",   "price": "500 FCFA", "duration": "35 min", "frequency": "Toutes les 20 min" },
+      { "id": "bs-yop-ab",  "ligne": "Ligne 51 — Yopougon → Abobo",    "price": "500 FCFA", "duration": "50 min", "frequency": "Toutes les 25 min" }
+    ]
+  },
+  "anyama": {
+    "gbaka": [
+      { "id": "gb-any-ab",  "ligne": "Anyama — Abobo",   "price": "200 FCFA", "duration": "20 min", "frequency": "Fréquent" },
+      { "id": "gb-any-adj", "ligne": "Anyama — Adjamé",  "price": "300 FCFA", "duration": "35 min", "frequency": "Régulier" }
+    ],
+    "woro-woro": [
+      { "id": "ww-any-ab", "ligne": "Anyama — Abobo",   "price": "350 FCFA", "duration": "18 min", "frequency": "Selon trafic" },
+      { "id": "ww-any-pla","ligne": "Anyama — Plateau",  "price": "600 FCFA", "duration": "50 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-any-pla", "ligne": "Ligne 44 — Anyama → Plateau", "price": "600 FCFA", "duration": "60 min", "frequency": "Toutes les 30 min" }
+    ]
+  },
+  "bingerville": {
+    "gbaka": [
+      { "id": "gb-bin-coc", "ligne": "Bingerville — Cocody", "price": "250 FCFA", "duration": "30 min", "frequency": "Régulier" },
+      { "id": "gb-bin-pla", "ligne": "Bingerville — Plateau","price": "350 FCFA", "duration": "40 min", "frequency": "Régulier" }
+    ],
+    "woro-woro": [
+      { "id": "ww-bin-coc", "ligne": "Bingerville — Cocody", "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-bin-pla", "ligne": "Bingerville — Plateau","price": "600 FCFA", "duration": "35 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-bin-pla", "ligne": "Ligne 71 — Bingerville → Plateau", "price": "600 FCFA", "duration": "50 min", "frequency": "Toutes les 30 min" }
+    ]
+  },
+  "songon": {
+    "gbaka": [
+      { "id": "gb-son-yop", "ligne": "Songon — Yopougon", "price": "250 FCFA", "duration": "30 min", "frequency": "Régulier" },
+      { "id": "gb-son-att", "ligne": "Songon — Attécoubé","price": "200 FCFA", "duration": "25 min", "frequency": "Régulier" }
+    ],
+    "woro-woro": [
+      { "id": "ww-son-yop", "ligne": "Songon — Yopougon", "price": "400 FCFA", "duration": "25 min", "frequency": "Selon trafic" },
+      { "id": "ww-son-pla", "ligne": "Songon — Plateau",  "price": "700 FCFA", "duration": "50 min", "frequency": "Selon trafic" }
+    ],
+    "bus": [
+      { "id": "bs-son-pla", "ligne": "Ligne 88 — Songon → Plateau", "price": "600 FCFA", "duration": "65 min", "frequency": "Toutes les 40 min" }
+    ]
+  }
+}

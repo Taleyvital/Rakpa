@@ -8,8 +8,10 @@ const MapCanvasLeaflet = dynamic(() => import("./MapCanvasLeaflet"), {
 
 export default function MapCanvas({
   center,
+  userPosition,
 }: {
   center?: [number, number];
+  userPosition?: [number, number];
 }) {
-  return <MapCanvasLeaflet center={center} />;
+  return <MapCanvasLeaflet center={center} userPosition={userPosition} />;
 }

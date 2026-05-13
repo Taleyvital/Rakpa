@@ -1,68 +1,174 @@
 "use client";
 
 import MapCanvas from "@/components/MapCanvas";
-import { useMemo, useRef, useState } from "react";
+import { useRef, useState } from "react";
+
+type Etape = {
+  ordre: number;
+  type: string;
+  instruction: string;
+  quoi_dire?: string;
+  couleur_vehicule?: string;
+  duree: string;
+  prix: string;
+  point_depart: string;
+  point_arrivee: string;
+  arrets_intermediaires?: string[];
+  conseil?: string;
+};
+
+type Option = {
+  id: string;
+  label: string;
+  duree_totale: string;
+  prix_total: string;
+  nb_correspondances: number;
+  etapes: Etape[];
+};
+
+type Itinerary = {
+  depart: string;
+  arrivee: string;
+  heure_depart: string;
+  alerte_trafic: boolean;
+  message_alerte?: string;
+  options: Option[];
+  option_recommandee: string;
+  resume: string;
+};
+
+const TRANSPORT_ICONS: Record<string, string> = {
+  "a_pied": "directions_walk",
+  "gbaka": "airport_shuttle",
+  "woro-woro": "directions_car",
+  "sotra": "directions_bus",
+  "zemidjan": "two_wheeler",
+  "correspondance": "swap_horiz",
+};
+
+const TRANSPORT_COLORS: Record<string, string> = {
+  "a_pied": "bg-gray-200 text-gray-600",
+  "gbaka": "bg-orange-500 text-white",
+  "woro-woro": "bg-yellow-400 text-black",
+  "sotra": "bg-blue-500 text-white",
+  "zemidjan": "bg-green-500 text-white",
+  "correspondance": "bg-gray-300 text-gray-600",
+};
+
+async function reverseGeocode(lat: number, lon: number): Promise<string> {
+  try {
+    const res = await fetch(
+      `https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lon}&format=json&accept-language=fr`,
+      { headers: { "User-Agent": "RakpaApp/1.0" } },
+    );
+    const data = await res.json();
+    const addr = data.address ?? {};
+    const parts = [
+      addr.neighbourhood,
+      addr.suburb,
+      addr.city_district,
+      addr.town,
+      addr.city,
+    ].filter(Boolean);
+    return parts.slice(0, 2).join(" ") || "Abidjan";
+  } catch {
+    return "Abidjan";
+  }
+}
 
 export default function Home() {
-  const inputRef = useRef<HTMLInputElement | null>(null);
-  const places = useMemo(
-    () =>
-      [
-        { label: "Plateau", center: [5.3236, -4.0167] as [number, number] },
-        { label: "Yopougon", center: [5.3364, -4.0707] as [number, number] },
-        { label: "Cocody", center: [5.3514, -3.9852] as [number, number] },
-        { label: "Treichville", center: [5.2987, -4.0152] as [number, number] },
-        { label: "Marcory", center: [5.2956, -3.9934] as [number, number] },
-      ],
-    [],
-  );
-  const [query, setQuery] = useState("");
-  const [mapCenter, setMapCenter] = useState<[number, number] | undefined>(
-    undefined,
-  );
-  const [showSuggestions, setShowSuggestions] = useState(false);
+  const fromRef = useRef<HTMLInputElement>(null);
+  const toRef = useRef<HTMLInputElement>(null);
 
-  const suggestions = useMemo(() => {
-    const q = query.trim().toLowerCase();
-    if (!q) return [];
-    return places.filter((p) => p.label.toLowerCase().includes(q));
-  }, [query, places]);
+  const [from, setFrom] = useState("");
+  const [to, setTo] = useState("");
+  const [mapCenter, setMapCenter] = useState<[number, number] | undefined>(undefined);
+  const [userPosition, setUserPosition] = useState<[number, number] | undefined>(undefined);
+  const [loading, setLoading] = useState(false);
+  const [itinerary, setItinerary] = useState<Itinerary | null>(null);
+  const [error, setError] = useState<string | null>(null);
+  const [activeOption, setActiveOption] = useState(0);
+  const [sheetOpen, setSheetOpen] = useState(false);
 
-  function applySearch(nextQuery: string) {
-    const q = nextQuery.trim().toLowerCase();
-    if (!q) return;
-    const match = places.find((p) => p.label.toLowerCase().includes(q));
-    if (match) {
-      setMapCenter(match.center);
-      setShowSuggestions(false);
-      setQuery(match.label);
+  async function locateMe() {
+    if (!navigator.geolocation) return;
+    navigator.geolocation.getCurrentPosition(
+      async (pos) => {
+        const coords: [number, number] = [pos.coords.latitude, pos.coords.longitude];
+        setMapCenter(coords);
+        setUserPosition(coords);
+        const name = await reverseGeocode(pos.coords.latitude, pos.coords.longitude);
+        setFrom(name);
+        toRef.current?.focus();
+      },
+      () => {
+        setMapCenter([5.3599517, -4.0082563]);
+      },
+      { enableHighAccuracy: true, timeout: 8000, maximumAge: 10_000 },
+    );
+  }
+
+  async function search() {
+    if (!from.trim() || !to.trim()) return;
+    setLoading(true);
+    setError(null);
+    setItinerary(null);
+
+    const now = new Date();
+    const heure = now.toLocaleTimeString("fr-CI", {
+      hour: "2-digit",
+      minute: "2-digit",
+      timeZone: "Africa/Abidjan",
+    });
+    const jour = now.toLocaleDateString("fr-CI", {
+      weekday: "long",
+      timeZone: "Africa/Abidjan",
+    });
+
+    try {
+      const res = await fetch("/api/itinerary", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ position_actuelle: from, destination: to, heure, jour }),
+      });
+      const data = await res.json();
+      if (!res.ok || data.error) {
+        setError(data.error ?? "Erreur inconnue");
+      } else {
+        setItinerary(data as Itinerary);
+        setActiveOption(0);
+        setSheetOpen(true);
+      }
+    } catch {
+      setError("Impossible de contacter Rakpa AI");
+    } finally {
+      setLoading(false);
     }
   }
 
+  const option = itinerary?.options[activeOption];
+
   return (
     <div className="bg-background text-on-background antialiased overflow-hidden h-screen w-screen">
+      {/* Map background */}
       <div className="fixed inset-0 z-0">
         <div className="w-full h-full grayscale bg-white relative">
-          <MapCanvas center={mapCenter} />
-          <div className="absolute inset-0 bg-white/50 pointer-events-none"></div>
+          <MapCanvas center={mapCenter} userPosition={userPosition} />
         </div>
-        <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none"></div>
+        <div className="absolute inset-0 bg-gradient-to-t from-background/20 to-transparent pointer-events-none" />
       </div>
 
+      {/* Header */}
       <header className="fixed top-0 left-0 right-0 z-50 bg-white/90 dark:bg-black/80 backdrop-blur-xl flex justify-between items-center px-6 py-4 w-full">
         <div className="flex items-center gap-3">
           <div className="w-10 h-10 rounded-full bg-white flex items-center justify-center overflow-hidden border-2 border-black shadow-sm">
-            <img
-              alt="Rakpa logo"
-              className="w-full h-full object-contain p-1"
-              src="/rakpa-logo.png"
-            />
+            <img alt="Rakpa logo" className="w-full h-full object-contain p-1" src="/rakpa-logo.png" />
           </div>
           <h1 className="font-bold tracking-tight text-2xl Inter text-black dark:text-white">Rakpa</h1>
         </div>
         <button
-          className="material-symbols-outlined text-black dark:text-white text-2xl hover:opacity-70 transition-opacity scale-95 active:duration-150"
-          onClick={() => inputRef.current?.focus()}
+          className="material-symbols-outlined text-black dark:text-white text-2xl hover:opacity-70 transition-opacity"
+          onClick={() => fromRef.current?.focus()}
           aria-label="Rechercher"
           type="button"
         >
@@ -70,123 +176,185 @@ export default function Home() {
         </button>
       </header>
 
+      {/* Search panel */}
       <main className="relative z-10 pt-24 px-6">
-        <div className="max-w-xl mx-auto space-y-6">
+        <div className="max-w-xl mx-auto space-y-3">
+          {/* Departure input */}
           <div className="bg-white/90 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.06)] p-2 flex items-center gap-3">
             <div className="pl-4 text-primary">
-              <span className="material-symbols-outlined">search</span>
+              <span className="material-symbols-outlined text-[20px]">my_location</span>
             </div>
             <input
-              ref={inputRef}
-              className="bg-transparent border-none focus:ring-0 w-full text-lg font-medium placeholder:text-gray-400 py-3"
-              placeholder="Où vas-tu, djaa ?"
+              ref={fromRef}
+              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium placeholder:text-gray-400 py-3"
+              placeholder="Depuis… (ou clique GPS)"
               type="text"
-              value={query}
-              onChange={(e) => setQuery(e.target.value)}
-              onFocus={() => setShowSuggestions(true)}
-              onKeyDown={(e) => {
-                if (e.key === "Enter") applySearch(query);
-                if (e.key === "Escape") setShowSuggestions(false);
-              }}
+              value={from}
+              onChange={(e) => setFrom(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") toRef.current?.focus(); }}
             />
-            <div className="pr-2">
-              <button className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors">
-                <span className="material-symbols-outlined text-primary">mic</span>
-              </button>
-            </div>
+            <button
+              type="button"
+              onClick={locateMe}
+              className="w-10 h-10 rounded-full bg-surface-container flex items-center justify-center hover:bg-surface-container-high transition-colors shrink-0 mr-1"
+              aria-label="Utiliser ma position"
+            >
+              <span className="material-symbols-outlined text-primary text-[20px]">gps_fixed</span>
+            </button>
           </div>
 
-          {showSuggestions && suggestions.length > 0 && (
-            <div className="bg-white/95 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.08)] overflow-hidden">
-              {suggestions.map((place) => (
-                <button
-                  key={place.label}
-                  type="button"
-                  className="w-full px-6 py-3 text-left hover:bg-surface-container transition-colors flex items-center gap-3"
-                  onClick={() => {
-                    setMapCenter(place.center);
-                    setQuery(place.label);
-                    setShowSuggestions(false);
-                  }}
-                >
-                  <span className="material-symbols-outlined text-primary text-sm">location_on</span>
-                  <span className="text-base font-medium">{place.label}</span>
-                </button>
-              ))}
+          {/* Destination input */}
+          <div className="bg-white/90 backdrop-blur-2xl rounded-xl shadow-[0_12px_32px_rgba(0,0,0,0.06)] p-2 flex items-center gap-3">
+            <div className="pl-4 text-primary">
+              <span className="material-symbols-outlined text-[20px]">location_on</span>
+            </div>
+            <input
+              ref={toRef}
+              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium placeholder:text-gray-400 py-3"
+              placeholder="Où vas-tu, djaa ?"
+              type="text"
+              value={to}
+              onChange={(e) => setTo(e.target.value)}
+              onKeyDown={(e) => { if (e.key === "Enter") search(); }}
+            />
+            <button
+              type="button"
+              onClick={search}
+              disabled={loading || !from.trim() || !to.trim()}
+              className="w-10 h-10 rounded-full bg-black flex items-center justify-center hover:opacity-80 transition-all disabled:opacity-30 shrink-0 mr-1"
+              aria-label="Calculer itinéraire"
+            >
+              {loading
+                ? <span className="w-4 h-4 border-2 border-white border-t-transparent rounded-full animate-spin" />
+                : <span className="material-symbols-outlined text-white text-[20px]">arrow_forward</span>
+              }
+            </button>
+          </div>
+
+          {error && (
+            <div className="bg-red-50 text-red-700 text-sm font-medium rounded-xl px-4 py-3">
+              {error}
             </div>
           )}
 
+          {/* Transport filter pills */}
           <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-            <button className="px-6 py-2.5 rounded-full bg-black text-white font-bold text-sm whitespace-nowrap transition-all active:scale-95">
-              Tout
-            </button>
-            <button className="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">
-              Gbaka
-            </button>
-            <button className="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">
-              Sotra
-            </button>
-            <button className="px-6 py-2.5 rounded-full bg-white/80 backdrop-blur-md text-black font-semibold text-sm whitespace-nowrap border border-black/5 shadow-sm hover:bg-white transition-all active:scale-95">
-              Wôrô-wôrô
-            </button>
+            {["Tout", "Gbaka", "Sotra", "Wôrô-wôrô"].map((label, i) => (
+              <button
+                key={label}
+                className={`px-6 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all active:scale-95 ${
+                  i === 0
+                    ? "bg-black text-white"
+                    : "bg-white/80 backdrop-blur-md text-black border border-black/5 shadow-sm hover:bg-white"
+                }`}
+              >
+                {label}
+              </button>
+            ))}
           </div>
         </div>
       </main>
 
-      <div className="fixed bottom-32 left-6 right-6 z-10 flex flex-row gap-4 max-w-4xl mx-auto items-end">
-        <div className="bg-white/90 backdrop-blur-2xl p-6 rounded-lg shadow-[0_12px_32px_rgba(0,0,0,0.06)] flex-1">
-          <div className="flex justify-between items-start mb-4">
-            <div>
-              <span className="text-[10px] font-medium uppercase tracking-widest text-gray-500 mb-1 block">
-                Prochain départ
-              </span>
-              <h3 className="text-xl font-bold tracking-tight">Express 102 — Plateau</h3>
+      {/* Bottom sheet — itinerary result */}
+      {itinerary && sheetOpen && (
+        <div className="fixed inset-0 z-40 flex flex-col justify-end pointer-events-none">
+          <div
+            className="absolute inset-0 bg-black/20 pointer-events-auto"
+            onClick={() => setSheetOpen(false)}
+          />
+          <div className="relative pointer-events-auto bg-white rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col">
+            {/* Handle */}
+            <div className="flex justify-center pt-3 pb-1 shrink-0">
+              <div className="w-10 h-1 rounded-full bg-gray-200" />
             </div>
-            <span className="bg-surface-container px-3 py-1 rounded-full text-xs font-bold uppercase tracking-tighter">
-              4 min
-            </span>
-          </div>
-          <div className="flex items-center gap-4 text-sm text-gray-600">
-            <div className="flex -space-x-2">
-              <div className="w-6 h-6 rounded-full bg-gray-200 border-2 border-white flex items-center justify-center text-[10px] font-bold">
-                12
+
+            {/* Header */}
+            <div className="px-5 pb-3 border-b border-gray-100 shrink-0">
+              <div className="flex items-start justify-between">
+                <div>
+                  <p className="text-[11px] font-bold uppercase tracking-widest text-gray-400 mb-0.5">
+                    {itinerary.depart} → {itinerary.arrivee}
+                  </p>
+                  <p className="font-black text-lg tracking-tight leading-tight">{itinerary.resume}</p>
+                </div>
+                <button type="button" onClick={() => setSheetOpen(false)}>
+                  <span className="material-symbols-outlined text-gray-400">close</span>
+                </button>
               </div>
-              <div className="w-6 h-6 rounded-full bg-gray-300 border-2 border-white"></div>
+
+              {itinerary.alerte_trafic && itinerary.message_alerte && (
+                <div className="mt-2 flex items-center gap-2 bg-orange-50 text-orange-700 text-xs font-semibold px-3 py-2 rounded-xl">
+                  <span className="material-symbols-outlined text-[16px]">warning</span>
+                  {itinerary.message_alerte}
+                </div>
+              )}
+
+              {/* Option tabs */}
+              {itinerary.options.length > 1 && (
+                <div className="flex gap-2 mt-3">
+                  {itinerary.options.map((opt, idx) => (
+                    <button
+                      key={opt.id}
+                      type="button"
+                      onClick={() => setActiveOption(idx)}
+                      className={`flex-1 py-2 rounded-xl text-xs font-bold transition-all ${
+                        activeOption === idx
+                          ? "bg-black text-white"
+                          : "bg-gray-100 text-gray-600"
+                      }`}
+                    >
+                      {opt.label}
+                      <span className="block font-normal opacity-70">{opt.duree_totale} • {opt.prix_total}</span>
+                    </button>
+                  ))}
+                </div>
+              )}
             </div>
-            <span>Forte affluence prévue</span>
+
+            {/* Steps */}
+            <div className="overflow-y-auto flex-1 px-5 py-4 space-y-3">
+              {option?.etapes.map((etape) => (
+                <div key={etape.ordre} className="flex gap-3">
+                  <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${TRANSPORT_COLORS[etape.type] ?? "bg-gray-200 text-gray-600"}`}>
+                    <span className="material-symbols-outlined text-[18px]">
+                      {TRANSPORT_ICONS[etape.type] ?? "directions"}
+                    </span>
+                  </div>
+
+                  <div className="flex-1 min-w-0">
+                    <p className="font-semibold text-sm leading-snug">{etape.instruction}</p>
+
+                    {etape.quoi_dire && (
+                      <div className="mt-1 bg-blue-50 text-blue-800 text-xs font-semibold px-2.5 py-1.5 rounded-lg">
+                        {etape.quoi_dire}
+                      </div>
+                    )}
+
+                    {etape.conseil && (
+                      <p className="text-xs text-gray-500 mt-1">{etape.conseil}</p>
+                    )}
+
+                    {etape.arrets_intermediaires && etape.arrets_intermediaires.length > 0 && (
+                      <p className="text-[11px] text-gray-400 mt-1">
+                        Via : {etape.arrets_intermediaires.join(" → ")}
+                      </p>
+                    )}
+
+                    <div className="flex items-center gap-3 mt-1.5 text-[11px] text-gray-400 font-medium">
+                      <span>{etape.point_depart} → {etape.point_arrivee}</span>
+                    </div>
+
+                    <div className="flex items-center gap-3 mt-1 text-[11px] font-bold">
+                      <span className="text-gray-600">{etape.duree}</span>
+                      {etape.prix !== "0 FCFA" && <span className="text-primary">{etape.prix}</span>}
+                    </div>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
         </div>
-
-        <div className="bg-black text-white p-6 rounded-lg shadow-xl w-48 aspect-square flex flex-col justify-between">
-          <span className="material-symbols-outlined text-3xl font-light">bolt</span>
-          <div>
-            <div className="text-3xl font-bold tracking-tighter leading-none">2.4</div>
-            <div className="text-[10px] font-medium uppercase tracking-widest opacity-60">
-              KM PROCHES
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <button
-        className="fixed bottom-28 right-6 z-50 w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center hover:scale-105 active:scale-95 transition-all"
-        type="button"
-        aria-label="Recentrer sur ma position"
-        onClick={() => {
-          if (!navigator.geolocation) return;
-          navigator.geolocation.getCurrentPosition(
-            (pos) => {
-              setMapCenter([pos.coords.latitude, pos.coords.longitude]);
-            },
-            () => {
-              setMapCenter([5.3599517, -4.0082563]);
-            },
-            { enableHighAccuracy: true, timeout: 8000, maximumAge: 10_000 },
-          );
-        }}
-      >
-        <span className="material-symbols-outlined text-3xl">my_location</span>
-      </button>
+      )}
     </div>
   );
 }

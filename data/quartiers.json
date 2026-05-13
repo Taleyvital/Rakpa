@@ -1,0 +1,628 @@
+{
+  "yopougon": [
+    {
+      "categorie": "Quartiers résidentiels & populaires",
+      "quartiers": [
+        "Yopougon Selmer",
+        "Yopougon Kouté",
+        "Yopougon Maroc",
+        "Yopougon Wassakara",
+        "Yopougon Siporex",
+        "Yopougon Banco",
+        "Yopougon Niangon Nord",
+        "Yopougon Niangon Sud",
+        "Yopougon Andokoi",
+        "Yopougon Williamsville",
+        "Yopougon Yaosséhi",
+        "Yopougon Lokoa",
+        "Yopougon Toits Rouges",
+        "Yopougon SICOGI",
+        "Yopougon Doukouré",
+        "Yopougon Fougères",
+        "Yopougon Port-Bouët 2"
+      ]
+    },
+    {
+      "categorie": "Zones industrielles & commerciales",
+      "quartiers": [
+        "Yopougon Zone Industrielle",
+        "Yopougon Carrefour",
+        "Yopougon Keneya"
+      ]
+    },
+    {
+      "categorie": "Quartiers périphériques & nouveaux",
+      "quartiers": [
+        "Yopougon Extension",
+        "Yopougon Académie",
+        "Yopougon Micao",
+        "Yopougon Gesco",
+        "Yopougon Attié"
+      ]
+    },
+    {
+      "categorie": "Secteurs & lieux-dits notables",
+      "quartiers": [
+        "Camp Militaire d'Agban",
+        "Yopougon Centre (Mairie)",
+        "Lycée Technique côté Yopougon"
+      ]
+    }
+  ],
+
+  "abobo": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Abobo Centre (Mairie)",
+        "Abobo Gare",
+        "Abobo Marché",
+        "Abobo Dokui",
+        "Abobo Derrière Rails",
+        "Abobo Avocatier",
+        "Abobo Sogefiha"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Abobo Baoulé",
+        "Abobo Kennedy",
+        "Abobo Clouetcha",
+        "Abobo Agnissankoi",
+        "Abobo Anador",
+        "Abobo Sagbé",
+        "Abobo Samaké",
+        "Abobo Éléphant",
+        "Abobo Château",
+        "Abobo PK 18",
+        "Abobo PK 19",
+        "Abobo PK 20",
+        "Abobo AK 2000"
+      ]
+    },
+    {
+      "categorie": "Quartiers périphériques & zones d'extension",
+      "quartiers": [
+        "Abobo Anyama Adjamé (limite)",
+        "Abobo Bocabo",
+        "Abobo Sébroko",
+        "Abobo N'Dotré",
+        "Abobo Blingué",
+        "Abobo Williamsville (limite Adjamé)",
+        "Abobo Banco Nord",
+        "Abobo Cité Lauriers",
+        "Abobo Fraternité",
+        "Abobo Plaque",
+        "Abobo Djékanou"
+      ]
+    },
+    {
+      "categorie": "Zones & lieux-dits notables",
+      "quartiers": [
+        "Camp Commando (Agban côté Abobo)",
+        "Abobo Sud",
+        "Abobo Nord",
+        "Abobo Est"
+      ]
+    }
+  ],
+
+  "adjame": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Adjamé Centre",
+        "Adjamé Marché Gouro",
+        "Adjamé Marché de Gros",
+        "Adjamé Gare Nord (gare routière)",
+        "Adjamé Liberté",
+        "Adjamé 220 Logements",
+        "Adjamé Plateau Dokui"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Adjamé Résidentiel",
+        "Adjamé SICOGI",
+        "Adjamé Williamsville",
+        "Adjamé Étoile",
+        "Adjamé Brésil"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Adjamé Santé",
+        "Adjamé Village (autochtone Ebrié)",
+        "Adjamé Agban",
+        "Adjamé Bracodi",
+        "Adjamé Anono (limite Cocody)",
+        "Adjamé Clouetcha",
+        "Adjamé Carrefour"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Camp Militaire Agban",
+        "Mosquée Centrale d'Adjamé",
+        "Marché de Gros d'Adjamé (plus grand d'Afrique de l'Ouest)",
+        "Gare de Treichville (liaison)"
+      ]
+    }
+  ],
+
+  "attecoubbe": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Attécoubé Centre (Mairie)",
+        "Attécoubé Marché",
+        "Attécoubé Gare"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Attécoubé Résidentiel",
+        "Attécoubé SICOGI",
+        "Attécoubé Cité Verte",
+        "Attécoubé Nouveau Quartier",
+        "Attécoubé Sogefiha"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Attécoubé Washington",
+        "Attécoubé Niangon (limite Yopougon)",
+        "Attécoubé Gbintou",
+        "Attécoubé Clouetcha",
+        "Attécoubé Sagbé",
+        "Attécoubé Bracodi",
+        "Attécoubé Boribana",
+        "Attécoubé Selmer (limite Yopougon)"
+      ]
+    },
+    {
+      "categorie": "Villages autochtones Ebrié",
+      "quartiers": [
+        "Attécoubé Village",
+        "Abobo-Doumé",
+        "Agoueto",
+        "Fanti Blokosso"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Forêt du Banco (Parc National — partagé avec Yopougon)",
+        "CHU de Yopougon (accès par Attécoubé)",
+        "Échangeur d'Attécoubé (nœud routier majeur)"
+      ]
+    }
+  ],
+
+  "cocody": [
+    {
+      "categorie": "Quartiers résidentiels haut standing",
+      "quartiers": [
+        "Cocody Plateau (limite commune du Plateau)",
+        "Cocody Les Deux Plateaux — Vallons",
+        "Cocody Les Deux Plateaux — Les Lauriers",
+        "Cocody Riviera 1",
+        "Cocody Riviera 2",
+        "Cocody Riviera 3",
+        "Cocody Riviera 4",
+        "Cocody Riviera Golf",
+        "Cocody Riviera Palmeraie",
+        "Cocody Ambassades",
+        "Cocody Canebière",
+        "Cocody Danga",
+        "Cocody Saint-Jean",
+        "Cocody Blockhaus",
+        "Cocody Bonoumin",
+        "Cocody Faya"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels intermédiaires",
+      "quartiers": [
+        "Cocody Angré 1er Tranche",
+        "Cocody Angré 2e Tranche",
+        "Cocody Angré 3e Tranche",
+        "Cocody Angré 4e Tranche",
+        "Cocody Angré 5e Tranche",
+        "Cocody Angré 6e Tranche",
+        "Cocody Angré 7e Tranche",
+        "Cocody Angré 8e Tranche",
+        "Cocody Mermoz",
+        "Cocody Belle Ville",
+        "Cocody Lycée Technique",
+        "Cocody Béago",
+        "Cocody II Plateaux Sans Fil",
+        "Cocody Attoban",
+        "Cocody Agbeville",
+        "Cocody Ebimpé"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires & villages urbains",
+      "quartiers": [
+        "Village de Cocody (village autochtone)",
+        "Anono",
+        "M'Badon",
+        "Abatta",
+        "Akouai-Santai",
+        "Agoueto"
+      ]
+    },
+    {
+      "categorie": "Zones institutionnelles & campus",
+      "quartiers": [
+        "Cité Universitaire de Cocody (UVCI)",
+        "CHU de Cocody",
+        "Zone Ambassades & Résidences diplomatiques",
+        "Quartier des Ministères"
+      ]
+    }
+  ],
+
+  "koumassi": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Koumassi Centre (Mairie)",
+        "Koumassi Marché",
+        "Koumassi Remblai",
+        "Koumassi Campement"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Koumassi Résidentiel",
+        "Koumassi Sogefiha",
+        "Koumassi SICOGI",
+        "Koumassi Grand Campement",
+        "Koumassi Petit Campement",
+        "Koumassi Clouetcha",
+        "Koumassi Avocatier",
+        "Koumassi Anador",
+        "Koumassi Salminard"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Koumassi Zone Industrielle",
+        "Koumassi Bromakote",
+        "Koumassi Derrière Rails",
+        "Koumassi AK 2000",
+        "Koumassi Sagbé",
+        "Koumassi Divo",
+        "Koumassi Extension"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Zone Industrielle de Koumassi (ZIK)",
+        "Port de Pêche (limite Treichville)"
+      ]
+    }
+  ],
+
+  "marcory": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Marcory Centre (Mairie)",
+        "Marcory Marché",
+        "Marcory Zone 4",
+        "Marcory Résidentiel"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Zone 4 (cœur festif et résidentiel)",
+        "Marcory Anoumabo",
+        "Marcory Belle Vue",
+        "Marcory SICOGI",
+        "Marcory Koumassi Résidentiel (limite)",
+        "Marcory Nouveau Quartier"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Marcory Sans Fil",
+        "Marcory Adjouffou (limite Port-Bouët)",
+        "Marcory Bromakote",
+        "Marcory Clouetcha",
+        "Marcory Derrière Rails"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Stade Robert Champroux",
+        "Boulevard de Marseille (axe principal)",
+        "Lagune Ébrié (bordure sud)"
+      ]
+    }
+  ],
+
+  "plateau": [
+    {
+      "categorie": "Zones d'affaires & institutionnelles",
+      "quartiers": [
+        "Le Plateau Centre (CBD)",
+        "Plateau Administratif (ministères, présidence)",
+        "Plateau Financier (banques, sièges sociaux)",
+        "Plateau Commerce (boutiques, galeries)",
+        "Plateau Hôtelier (Sofitel, Pullman, Ivotel)"
+      ]
+    },
+    {
+      "categorie": "Artères & axes principaux",
+      "quartiers": [
+        "Avenue Botreau-Roussel",
+        "Avenue Chardy",
+        "Avenue du Général de Gaulle",
+        "Boulevard Clozel",
+        "Boulevard de la République"
+      ]
+    },
+    {
+      "categorie": "Lieux notables & monuments",
+      "quartiers": [
+        "Cathédrale Saint-Paul du Plateau",
+        "Mosquée du Plateau",
+        "Marché de la Coopec",
+        "Tour Postel 2001",
+        "Immeuble CCIA",
+        "Jardins de la Banque Centrale (BCEAO)"
+      ]
+    },
+    {
+      "categorie": "Ponts & liaisons",
+      "quartiers": [
+        "Pont Charles de Gaulle (Plateau ↔ Treichville)",
+        "Pont Félix Houphouët-Boigny (Plateau ↔ Treichville)",
+        "Pont de Gaulle (Plateau ↔ Cocody)"
+      ]
+    }
+  ],
+
+  "port-bouet": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Port-Bouët Centre",
+        "Port-Bouët Marché",
+        "Port-Bouët Gare",
+        "Vridi 1",
+        "Vridi 2",
+        "Vridi 3",
+        "Vridi Canal"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Aéroport Résidentiel",
+        "Gonzagueville",
+        "Jean Folly",
+        "Adjouffou 1",
+        "Adjouffou 2",
+        "Adjouffou 3",
+        "Petit Bassam",
+        "Grand Bassam Route"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires & villages lagunaires",
+      "quartiers": [
+        "Blockhaus Port-Bouët",
+        "Port-Bouët Village (Ebrié)",
+        "Agban Port",
+        "Locodjro",
+        "Abouabou",
+        "Kouté",
+        "Yao Sehi côté Port-Bouët",
+        "Anoumabo (limite Marcory)"
+      ]
+    },
+    {
+      "categorie": "Zones institutionnelles",
+      "quartiers": [
+        "Aéroport International Félix Houphouët-Boigny",
+        "Base Navale / Port Militaire",
+        "Zone Portuaire (PAA — Port Autonome d'Abidjan)",
+        "Zone Franche d'Exportation (ZFE)"
+      ]
+    }
+  ],
+
+  "treichville": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Treichville Centre",
+        "Treichville Marché",
+        "Treichville Gare (ex-gare ferroviaire)",
+        "Treichville Port (limite PAA)"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Treichville Résidentiel",
+        "Treichville Cité Fayçal",
+        "Treichville SICOGI",
+        "Treichville Avenue 17",
+        "Treichville Avenue 21",
+        "Treichville Avenue 24",
+        "Treichville Adjouffou (limite)"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Treichville Village (autochtone Ebrié)",
+        "Treichville Arras",
+        "Treichville Zone Portuaire",
+        "Treichville Kouté",
+        "Treichville Locodjro (limite Port-Bouët)"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Port Autonome d'Abidjan (PAA)",
+        "Palais des Sports de Treichville",
+        "Stade Félix Houphouët-Boigny",
+        "Avenue Giscard d'Estaing (axe principal)"
+      ]
+    }
+  ],
+
+  "anyama": [
+    {
+      "categorie": "Quartiers centraux",
+      "quartiers": [
+        "Anyama Centre (Mairie)",
+        "Anyama Marché",
+        "Anyama Gare Routière",
+        "Anyama Adjamé (quartier historique)"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Anyama Libreville",
+        "Anyama Ahouabo",
+        "Anyama Cité Doit",
+        "Anyama Résidentiel",
+        "Anyama Nouveau Quartier",
+        "Anyama Sagbé"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires & villages",
+      "quartiers": [
+        "Anyama Akandjé",
+        "Anyama Lokoa",
+        "Anyama Djékanou",
+        "Anyama PK 22",
+        "Anyama PK 24",
+        "Anyama Brofodoumé",
+        "Anyama Ahouénouan",
+        "Anyama Akoupé-Zeudji"
+      ]
+    },
+    {
+      "categorie": "Zones notables",
+      "quartiers": [
+        "Forêt Classée d'Anyama",
+        "Cimetière d'Anyama (le plus grand d'Abidjan)",
+        "Péage Autoroute du Nord"
+      ]
+    }
+  ],
+
+  "bingerville": [
+    {
+      "categorie": "Quartiers centraux & historiques",
+      "quartiers": [
+        "Bingerville Centre",
+        "Bingerville Village (quartier autochtone Ebrié)",
+        "Bingerville Administratif (ancienne capitale coloniale)",
+        "Bingerville Marché",
+        "Bingerville Gare Routière"
+      ]
+    },
+    {
+      "categorie": "Quartiers résidentiels",
+      "quartiers": [
+        "Bingerville Cité SIR",
+        "Bingerville Cité des Fonctionnaires",
+        "Bingerville Résidence",
+        "Bingerville Anono Extension",
+        "Bingerville Belle Vue",
+        "Bingerville Lac",
+        "Bingerville Quartier Catholique",
+        "Bingerville Nouveau Quartier"
+      ]
+    },
+    {
+      "categorie": "Quartiers populaires",
+      "quartiers": [
+        "Bingerville Ahoue",
+        "Bingerville Akromiaba",
+        "Bingerville Anoumabo Extension",
+        "Bingerville Loviguié",
+        "Bingerville Akpro",
+        "Bingerville Agou",
+        "Bingerville M'Batto"
+      ]
+    },
+    {
+      "categorie": "Villages urbains & périphérie",
+      "quartiers": [
+        "Akouai Village",
+        "Akouai-Santai (limite Cocody)",
+        "Abatta Village",
+        "Anoumabo",
+        "Blockhauss Extension",
+        "Anono (limite Cocody/Bingerville)",
+        "Akandjé",
+        "Adjin",
+        "Bonoua Route"
+      ]
+    },
+    {
+      "categorie": "Zones institutionnelles & lieux notables",
+      "quartiers": [
+        "École Nationale de Police (ENP)",
+        "Jardin Botanique de Bingerville",
+        "Orphelinat de Bingerville",
+        "Prison Civile de Bingerville",
+        "Lycée Municipal de Bingerville",
+        "Palais du Gouverneur (vestige colonial)"
+      ]
+    }
+  ],
+
+  "songon": [
+    {
+      "categorie": "Quartiers résidentiels & populaires",
+      "quartiers": [
+        "Songon Centre",
+        "Songon Agban",
+        "Songon Dagbe",
+        "Songon M'Brago",
+        "Songon Kassemble"
+      ]
+    },
+    {
+      "categorie": "Zones rurales & périphériques",
+      "quartiers": [
+        "Songon Extension",
+        "Songon Village Traditionnel",
+        "Songon Carrefour"
+      ]
+    },
+    {
+      "categorie": "Secteurs & lieux-dits notables",
+      "quartiers": [
+        "Songon Mairie",
+        "Songon Lagune (bord)"
+      ]
+    }
+  ]
+}

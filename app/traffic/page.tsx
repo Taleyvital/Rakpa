@@ -3,6 +3,7 @@
 import { useMemo, useState } from "react";
 import { useRouter } from "next/navigation";
 import traffic from "@/data/traffic.json";
+import MapCanvas from "@/components/MapCanvas";
 
 type TrafficAxis = {
   id: string;
@@ -68,27 +69,25 @@ export default function Page() {
 
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-12">
           <div className="md:col-span-2 relative h-[400px] rounded-lg overflow-hidden bg-surface-container shadow-sm">
-            <img
-              alt="Map view"
-              className="w-full h-full object-cover grayscale opacity-40 mix-blend-multiply"
-              src="https://lh3.googleusercontent.com/aida-public/AB6AXuA1XpShQX1WMG6T6AW_2POGOFpJ6G1-NLJ__Ll9UnuNe2GFKEEsMOlyp8f7n3WJzXmmYMsHaWuAj8LfnVN5pQYIa3dEIPD1Sfr3R9s3cPJOyA-NRZ-4KPY6-MpM8c4mh1y2IEIS6j43fqhQ1EXXaI5qpGBhucVOookZ72oTWW8OdUG5BZdC6TnkdMDRealMGBBM310SyrYIlQuzhSNRM3j7Dr7M88xw_Gr9MTncELDqWamH0X0QxWP6N8p-TzB_Evjo_Xz7iCO-71w"
-            />
-            <div className="absolute bottom-6 left-6 right-6 bg-white/85 backdrop-blur-[20px] p-6 rounded-lg border border-white/20">
-              <div className="flex justify-between items-end">
+            <div className="absolute inset-0 grayscale">
+              <MapCanvas center={[5.3599517, -4.0082563]} />
+            </div>
+            <div className="absolute bottom-0 left-0 right-0 bg-white/95 backdrop-blur-xl px-6 py-5 border-t border-black/5">
+              <div className="flex justify-between items-center">
                 <div>
-                  <span className="label-sm text-[10px] font-medium uppercase tracking-widest text-on-surface-variant mb-1 block">
-                    STATUT GLOBAL
+                  <span className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mb-0.5 block">
+                    Statut global
                   </span>
-                  <h3 className="text-2xl font-bold tracking-tight">
+                  <h3 className="text-xl font-black tracking-tight text-black">
                     {data.headline}
                   </h3>
                 </div>
                 <div className="text-right">
-                  <span className="text-3xl font-black tracking-tighter">
+                  <span className="text-4xl font-black tracking-tighter text-black leading-none">
                     {data.delayPercent}
                   </span>
-                  <p className="text-[10px] font-medium uppercase tracking-widest text-on-surface-variant">
-                    DE RETARD
+                  <p className="text-[10px] font-bold uppercase tracking-widest text-gray-400 mt-0.5">
+                    de retard
                   </p>
                 </div>
               </div>

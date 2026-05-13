@@ -1,0 +1,15 @@
+[
+  { "id": "abobo",      "name": "Abobo",      "type": "Commune",     "icon": "location_city", "population": "1.5M hab." },
+  { "id": "adjame",     "name": "Adjamé",     "type": "Commune",     "icon": "storefront",    "population": "380K hab." },
+  { "id": "attecoubbe", "name": "Attécoubé",  "type": "Commune",     "icon": "park",          "population": "280K hab." },
+  { "id": "cocody",     "name": "Cocody",     "type": "Commune",     "icon": "school",        "population": "450K hab." },
+  { "id": "koumassi",   "name": "Koumassi",   "type": "Commune",     "icon": "factory",       "population": "380K hab." },
+  { "id": "marcory",    "name": "Marcory",    "type": "Commune",     "icon": "home",          "population": "250K hab." },
+  { "id": "plateau",    "name": "Plateau",    "type": "Centre-ville","icon": "apartment",     "population": "15K hab."  },
+  { "id": "port-bouet", "name": "Port-Bouët", "type": "Commune",     "icon": "flight",        "population": "320K hab." },
+  { "id": "treichville","name": "Treichville","type": "Commune",     "icon": "anchor",        "population": "180K hab." },
+  { "id": "yopougon",   "name": "Yopougon",   "type": "Commune",     "icon": "groups",        "population": "1.07M hab."},
+  { "id": "anyama",     "name": "Anyama",     "type": "Banlieue",    "icon": "forest",        "population": "160K hab." },
+  { "id": "bingerville","name": "Bingerville","type": "Banlieue",    "icon": "beach_access",  "population": "120K hab." },
+  { "id": "songon",     "name": "Songon",     "type": "Banlieue",    "icon": "water",         "population": "50K hab."  }
+]
