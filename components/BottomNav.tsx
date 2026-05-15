@@ -9,9 +9,12 @@ type NavItem = {
   icon: string;
 };
 
-const items: NavItem[] = [
+const leftItems: NavItem[] = [
   { href: "/", label: "Explore", icon: "map" },
   { href: "/routes", label: "Routes", icon: "directions_transit" },
+];
+
+const rightItems: NavItem[] = [
   { href: "/traffic", label: "Traffic", icon: "traffic" },
   { href: "/profile", label: "Profil", icon: "person" },
 ];
@@ -22,80 +25,93 @@ interface Props {
 
 export default function BottomNav({ onAdd }: Props) {
   const pathname = usePathname();
-  const leftItems = items.slice(0, 2);
-  const rightItems = items.slice(2);
 
   return (
-    <nav className="fixed bottom-0 w-full z-50 pb-safe bg-white/90 dark:bg-black/90 backdrop-blur-2xl h-20 px-8 w-full shadow-[0_-12px_32px_rgba(0,0,0,0.06)]">
-      <div className="grid grid-cols-5 items-center h-full">
-        {leftItems.map((item) => {
-          const active = pathname === item.href;
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                active
-                  ? "flex flex-col items-center justify-center text-black dark:text-white scale-110 transition-all duration-300 ease-in-out"
-                  : "flex flex-col items-center justify-center text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out"
-              }
-            >
-              <span
-                className="material-symbols-outlined"
-                style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
+    <div className="fixed bottom-6 left-0 right-0 z-50 flex justify-center px-4">
+      {/* Bordure pointillée extérieure */}
+      <div className="rounded-[2rem] p-[6px] border-2 border-dashed border-outline-variant">
+        {/* Pill nav */}
+        <nav className="flex items-center px-5 py-3 rounded-[1.6rem] bg-surface-container-lowest/90 dark:bg-surface-container/90 backdrop-blur-md shadow-lg">
+          {leftItems.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex flex-col items-center justify-center w-16 gap-0.5 transition-all duration-200"
               >
-                {item.icon}
-              </span>
-              <span className="text-[10px] font-medium uppercase tracking-widest mt-1">
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
+                <span
+                  className="material-symbols-outlined text-[22px]"
+                  style={{
+                    color: active ? "var(--foreground)" : "var(--outline)",
+                    fontVariationSettings: active
+                      ? "'FILL' 1, 'wght' 400"
+                      : "'FILL' 0, 'wght' 200",
+                  }}
+                >
+                  {item.icon}
+                </span>
+                <span
+                  className="text-[10px] tracking-wide"
+                  style={{
+                    color: active ? "var(--foreground)" : "var(--outline)",
+                    fontWeight: active ? 700 : 500,
+                  }}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
 
-        <button
-          type="button"
-          aria-label="Ajouter un itinéraire"
-          onClick={onAdd}
-          className="flex items-center justify-center"
-        >
-          <div className="w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center -mt-8 active:scale-90 transition-transform">
+          {/* Bouton central */}
+          <button
+            type="button"
+            aria-label="Ajouter un itinéraire"
+            onClick={onAdd}
+            className="w-14 h-14 rounded-full flex items-center justify-center mx-3 shadow-xl active:scale-90 transition-transform bg-primary"
+          >
             <span
-              className="material-symbols-outlined text-3xl"
-              style={{ fontVariationSettings: "'wght' 400" }}
+              className="material-symbols-outlined text-[28px] text-surface"
+              style={{ fontVariationSettings: "'FILL' 1, 'wght' 400" }}
             >
               add
             </span>
-          </div>
-        </button>
+          </button>
 
-        {rightItems.map((item) => {
-          const active = pathname === item.href;
-
-          return (
-            <Link
-              key={item.href}
-              href={item.href}
-              className={
-                active
-                  ? "flex flex-col items-center justify-center text-black dark:text-white scale-110 transition-all duration-300 ease-in-out"
-                  : "flex flex-col items-center justify-center text-gray-300 dark:text-gray-700 hover:text-black dark:hover:text-white transition-all duration-300 ease-in-out"
-              }
-            >
-              <span
-                className="material-symbols-outlined"
-                style={active ? { fontVariationSettings: "'FILL' 1" } : undefined}
+          {rightItems.map((item) => {
+            const active = pathname === item.href;
+            return (
+              <Link
+                key={item.href}
+                href={item.href}
+                className="flex flex-col items-center justify-center w-16 gap-0.5 transition-all duration-200"
               >
-                {item.icon}
-              </span>
-              <span className="text-[10px] font-medium uppercase tracking-widest mt-1">
-                {item.label}
-              </span>
-            </Link>
-          );
-        })}
+                <span
+                  className="material-symbols-outlined text-[22px]"
+                  style={{
+                    color: active ? "var(--foreground)" : "var(--outline)",
+                    fontVariationSettings: active
+                      ? "'FILL' 1, 'wght' 400"
+                      : "'FILL' 0, 'wght' 200",
+                  }}
+                >
+                  {item.icon}
+                </span>
+                <span
+                  className="text-[10px] tracking-wide"
+                  style={{
+                    color: active ? "var(--foreground)" : "var(--outline)",
+                    fontWeight: active ? 700 : 500,
+                  }}
+                >
+                  {item.label}
+                </span>
+              </Link>
+            );
+          })}
+        </nav>
       </div>
-    </nav>
+    </div>
   );
 }
