@@ -2,7 +2,9 @@
 
 import communes from "@/data/communes.json";
 import Link from "next/link";
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
+import { getItineraires } from "@/lib/itineraires";
+import type { Itineraire } from "@/types/itineraire";
 
 type Etape = {
   ordre: number;
@@ -90,6 +92,11 @@ export default function Page() {
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
   const [error, setError] = useState<string | null>(null);
   const [activeOption, setActiveOption] = useState(0);
+  const [communaute, setCommunaute] = useState<Itineraire[]>([]);
+
+  useEffect(() => {
+    getItineraires().then(setCommunaute).catch(() => {});
+  }, []);
 
   async function locateMe() {
     if (!navigator.geolocation) return;
@@ -370,6 +377,72 @@ export default function Page() {
                 </Link>
               ))}
             </div>
+          </div>
+        )}
+
+        {/* Itinéraires communautaires */}
+        {!itinerary && !loading && (
+          <div className="mt-10">
+            <div className="flex items-center justify-between mb-4">
+              <p className="text-[11px] font-bold uppercase tracking-widest text-outline">
+                Proposés par la communauté
+              </p>
+              {communaute.length > 0 && (
+                <span className="text-[10px] font-bold bg-black text-white px-2 py-0.5 rounded-full">
+                  {communaute.length}
+                </span>
+              )}
+            </div>
+
+            {communaute.length === 0 ? (
+              <div className="bg-gray-50 rounded-2xl px-4 py-6 text-center space-y-2">
+                <p className="text-2xl">🗺️</p>
+                <p className="text-sm font-semibold text-gray-500">Aucun itinéraire validé pour l'instant</p>
+                <p className="text-xs text-gray-400">Appuie sur + pour proposer le premier !</p>
+              </div>
+            ) : (
+              <div className="flex flex-col gap-3">
+                {communaute.map((it) => {
+                  const EMOJI: Record<string, string> = {
+                    gbaka: "🚐", "woro-woro": "🚖", sotra: "🚌", zemidjan: "🛵", mixte: "🔀",
+                  };
+                  const total = it.votes_up + it.votes_down;
+                  const pct = total > 0 ? Math.round((it.votes_up / total) * 100) : 0;
+                  return (
+                    <Link
+                      key={it.id}
+                      href={`/itineraires/${it.id}`}
+                      className="bg-white rounded-2xl border border-gray-100 shadow-[0_2px_12px_rgba(0,0,0,0.04)] p-4 flex gap-3 items-start hover:shadow-md transition-shadow active:scale-[0.98]"
+                    >
+                      <div className="w-10 h-10 rounded-xl bg-gray-50 flex items-center justify-center text-xl shrink-0">
+                        {EMOJI[it.type_transport] ?? "🚌"}
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <p className="font-bold text-sm leading-tight">
+                          {it.depart} → {it.arrivee}
+                        </p>
+                        <p className="text-[11px] text-gray-400 mt-0.5">
+                          {it.commune_depart} → {it.commune_arrivee}
+                        </p>
+                        <div className="flex items-center gap-3 mt-2 text-[11px] font-semibold text-gray-500">
+                          <span>⏱ {it.duree_min}–{it.duree_max} min</span>
+                          <span>💰 {it.prix_min}–{it.prix_max} F</span>
+                        </div>
+                        <div className="flex items-center gap-2 mt-2">
+                          <div className="flex-1 h-1 bg-gray-100 rounded-full overflow-hidden">
+                            <div className="h-full bg-black rounded-full" style={{ width: `${pct}%` }} />
+                          </div>
+                          <span className="text-[10px] font-bold text-gray-400">{it.votes_up} 👍</span>
+                        </div>
+                      </div>
+                      <span className="material-symbols-outlined text-gray-300 text-[18px] shrink-0 mt-1">
+                        chevron_right
+                      </span>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         )}
       </main>

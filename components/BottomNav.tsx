@@ -16,7 +16,11 @@ const items: NavItem[] = [
   { href: "/profile", label: "Profil", icon: "person" },
 ];
 
-export default function BottomNav() {
+interface Props {
+  onAdd?: () => void;
+}
+
+export default function BottomNav({ onAdd }: Props) {
   const pathname = usePathname();
   const leftItems = items.slice(0, 2);
   const rightItems = items.slice(2);
@@ -50,12 +54,13 @@ export default function BottomNav() {
           );
         })}
 
-        <Link
-          href="/rec"
-          aria-label="Enregistrer un trajet"
+        <button
+          type="button"
+          aria-label="Ajouter un itinéraire"
+          onClick={onAdd}
           className="flex items-center justify-center"
         >
-          <div className="w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center -mt-8">
+          <div className="w-16 h-16 rounded-full bg-black text-white shadow-2xl flex items-center justify-center -mt-8 active:scale-90 transition-transform">
             <span
               className="material-symbols-outlined text-3xl"
               style={{ fontVariationSettings: "'wght' 400" }}
@@ -63,7 +68,7 @@ export default function BottomNav() {
               add
             </span>
           </div>
-        </Link>
+        </button>
 
         {rightItems.map((item) => {
           const active = pathname === item.href;

@@ -262,7 +262,11 @@ export default function Home() {
             className="absolute inset-0 bg-black/20 pointer-events-auto"
             onClick={() => setSheetOpen(false)}
           />
-          <div className="relative pointer-events-auto bg-white rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col">
+          <div
+            className="relative pointer-events-auto bg-white rounded-t-3xl shadow-2xl max-h-[80vh] flex flex-col"
+            onWheel={(e) => e.stopPropagation()}
+            onTouchMove={(e) => e.stopPropagation()}
+          >
             {/* Handle */}
             <div className="flex justify-center pt-3 pb-1 shrink-0">
               <div className="w-10 h-1 rounded-full bg-gray-200" />
@@ -312,7 +316,7 @@ export default function Home() {
             </div>
 
             {/* Steps */}
-            <div className="overflow-y-auto flex-1 px-5 py-4 space-y-3">
+            <div className="overflow-y-auto overscroll-contain flex-1 px-5 py-4 space-y-3">
               {option?.etapes.map((etape) => (
                 <div key={etape.ordre} className="flex gap-3">
                   <div className={`w-9 h-9 rounded-xl flex items-center justify-center shrink-0 ${TRANSPORT_COLORS[etape.type] ?? "bg-gray-200 text-gray-600"}`}>
