@@ -46,6 +46,13 @@ const TRANSPORT_ICONS: Record<string, string> = {
   "correspondance": "swap_horiz",
 };
 
+type ErreurApp = {
+  kind: "reseau" | "service" | "destination_inconnue" | "trajet_trop_court";
+  message: string;
+  suggestions?: string[];
+  itineraire_pieton?: string;
+};
+
 const TRANSPORT_COLORS: Record<string, string> = {
   "a_pied": "bg-gray-200 text-gray-600",
   "gbaka": "bg-orange-500 text-white",
@@ -53,6 +60,12 @@ const TRANSPORT_COLORS: Record<string, string> = {
   "sotra": "bg-blue-500 text-white",
   "zemidjan": "bg-green-500 text-white",
   "correspondance": "bg-gray-300 text-gray-600",
+};
+
+const FILTER_TRANSPORT_TYPE: Record<string, string> = {
+  "Gbaka": "gbaka",
+  "Sotra": "sotra",
+  "Wôrô-wôrô": "woro-woro",
 };
 
 async function reverseGeocode(lat: number, lon: number): Promise<string> {
@@ -86,9 +99,10 @@ export default function Home() {
   const [userPosition, setUserPosition] = useState<[number, number] | undefined>(undefined);
   const [loading, setLoading] = useState(false);
   const [itinerary, setItinerary] = useState<Itinerary | null>(null);
-  const [error, setError] = useState<string | null>(null);
+  const [error, setError] = useState<ErreurApp | null>(null);
   const [activeOption, setActiveOption] = useState(0);
   const [sheetOpen, setSheetOpen] = useState(false);
+  const [transportFilter, setTransportFilter] = useState("Tout");
 
   async function locateMe() {
     if (!navigator.geolocation) return;
@@ -133,20 +147,40 @@ export default function Home() {
       });
       const data = await res.json();
       if (!res.ok || data.error) {
-        setError(data.error ?? "Erreur inconnue");
+        if (data.erreur === "destination_inconnue") {
+          setError({
+            kind: "destination_inconnue",
+            message: data.message ?? "Destination inconnue",
+            suggestions: data.suggestions,
+          });
+        } else if (data.erreur === "trajet_trop_court") {
+          setError({
+            kind: "trajet_trop_court",
+            message: data.message ?? "C'est tout près !",
+            itineraire_pieton: data.itineraire_pieton,
+          });
+        } else {
+          setError({ kind: "service", message: data.error ?? "Erreur inconnue" });
+        }
       } else {
         setItinerary(data as Itinerary);
         setActiveOption(0);
         setSheetOpen(true);
       }
     } catch {
-      setError("Impossible de contacter Rakpa AI");
+      setError({ kind: "reseau", message: "Impossible de contacter Rakpa AI" });
     } finally {
       setLoading(false);
     }
   }
 
-  const option = itinerary?.options[activeOption];
+  const filteredOptions = (itinerary?.options ?? []).filter((opt) => {
+    if (transportFilter === "Tout") return true;
+    const type = FILTER_TRANSPORT_TYPE[transportFilter];
+    return type ? opt.etapes.some((e) => e.type === type) : true;
+  });
+
+  const option = filteredOptions[activeOption];
 
   return (
     <div className="bg-background text-on-background antialiased overflow-hidden h-screen w-screen">
@@ -231,19 +265,72 @@ export default function Home() {
             </button>
           </div>
 
-          {error && (
+          {error && error.kind === "destination_inconnue" && (
+            <div className="bg-amber-50 border border-amber-100 text-amber-800 text-sm rounded-xl px-4 py-3">
+              <div className="flex items-center gap-2 font-semibold">
+                <span className="material-symbols-outlined text-[18px]">location_off</span>
+                {error.message}
+              </div>
+              {error.suggestions && error.suggestions.length > 0 && (
+                <div className="flex flex-wrap gap-2 mt-2">
+                  {error.suggestions.map((s) => (
+                    <button
+                      key={s}
+                      type="button"
+                      onClick={() => { setTo(s); setError(null); }}
+                      className="px-3 py-1.5 rounded-full bg-white border border-amber-200 text-xs font-bold hover:bg-amber-100 transition-colors"
+                    >
+                      {s}
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+
+          {error && error.kind === "trajet_trop_court" && (
+            <div className="bg-emerald-50 border border-emerald-100 text-emerald-800 text-sm rounded-xl px-4 py-3">
+              <div className="flex items-center gap-2 font-semibold">
+                <span className="material-symbols-outlined text-[18px]">directions_walk</span>
+                {error.message}
+              </div>
+              {error.itineraire_pieton && (
+                <p className="mt-1.5 text-xs text-emerald-700">{error.itineraire_pieton}</p>
+              )}
+            </div>
+          )}
+
+          {error && error.kind === "service" && (
             <div className="bg-red-50 text-red-700 text-sm font-medium rounded-xl px-4 py-3">
-              {error}
+              {error.message}
+            </div>
+          )}
+
+          {error && error.kind === "reseau" && (
+            <div className="bg-red-50 text-red-700 text-sm font-medium rounded-xl px-4 py-3 flex items-center justify-between gap-3">
+              <span>{error.message}</span>
+              <button
+                type="button"
+                onClick={() => search()}
+                className="px-3 py-1.5 rounded-full bg-red-600 text-white text-xs font-bold hover:bg-red-700 transition-colors shrink-0"
+              >
+                Réessayer
+              </button>
             </div>
           )}
 
           {/* Transport filter pills */}
           <div className="flex gap-3 overflow-x-auto hide-scrollbar pb-2">
-            {["Tout", "Gbaka", "Sotra", "Wôrô-wôrô"].map((label, i) => (
+            {["Tout", "Gbaka", "Sotra", "Wôrô-wôrô"].map((label) => (
               <button
                 key={label}
+                type="button"
+                onClick={() => {
+                  setTransportFilter(label);
+                  setActiveOption(0);
+                }}
                 className={`px-6 py-2.5 rounded-full font-bold text-sm whitespace-nowrap transition-all active:scale-95 ${
-                  i === 0
+                  transportFilter === label
                     ? "bg-black text-white"
                     : "bg-white/80 backdrop-blur-md text-black border border-black/5 shadow-sm hover:bg-white"
                 }`}
@@ -254,6 +341,39 @@ export default function Home() {
           </div>
         </div>
       </main>
+
+      {/* Bottom sheet — loading skeleton */}
+      {loading && !itinerary && (
+        <div className="fixed inset-0 z-40 flex flex-col justify-end pointer-events-none">
+          <div className="absolute inset-0 bg-black/20" />
+          <div className="relative pointer-events-auto bg-white rounded-t-3xl shadow-2xl max-h-[60vh] flex flex-col">
+            <div className="flex justify-center pt-3 pb-1 shrink-0">
+              <div className="w-10 h-1 rounded-full bg-gray-200" />
+            </div>
+            <div className="px-5 py-4 space-y-4">
+              <div className="h-4 w-2/3 bg-gray-200 rounded-lg animate-pulse" />
+              <div className="h-6 w-1/2 bg-gray-200 rounded-lg animate-pulse" />
+              <div className="flex gap-2">
+                <div className="h-14 flex-1 bg-gray-100 rounded-xl animate-pulse" />
+                <div className="h-14 flex-1 bg-gray-100 rounded-xl animate-pulse" />
+              </div>
+              {[0, 1, 2].map((i) => (
+                <div key={i} className="flex gap-3 items-start">
+                  <div className="w-9 h-9 rounded-xl bg-gray-200 shrink-0 animate-pulse" />
+                  <div className="flex-1 space-y-2">
+                    <div className="h-4 bg-gray-200 rounded-lg animate-pulse" style={{ width: `${85 - i * 15}%` }} />
+                    <div className="h-3 bg-gray-100 rounded-lg animate-pulse" style={{ width: `${60 - i * 12}%` }} />
+                  </div>
+                </div>
+              ))}
+              <div className="flex items-center justify-center gap-2 text-gray-400 text-xs font-semibold">
+                <span className="w-3 h-3 border-2 border-gray-300 border-t-transparent rounded-full animate-spin" />
+                Rakpa cherche le meilleur itinéraire…
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
 
       {/* Bottom sheet — itinerary result */}
       {itinerary && sheetOpen && (
@@ -294,9 +414,9 @@ export default function Home() {
               )}
 
               {/* Option tabs */}
-              {itinerary.options.length > 1 && (
+              {filteredOptions.length > 1 && (
                 <div className="flex gap-2 mt-3">
-                  {itinerary.options.map((opt, idx) => (
+                  {filteredOptions.map((opt, idx) => (
                     <button
                       key={opt.id}
                       type="button"
@@ -311,6 +431,13 @@ export default function Home() {
                       <span className="block font-normal opacity-70">{opt.duree_totale} • {opt.prix_total}</span>
                     </button>
                   ))}
+                </div>
+              )}
+
+              {filteredOptions.length === 0 && (
+                <div className="mt-3 flex items-center gap-2 bg-gray-50 text-gray-600 text-xs font-semibold px-3 py-2 rounded-xl">
+                  <span className="material-symbols-outlined text-[16px]">search_off</span>
+                  Aucun itinéraire en {transportFilter.toLowerCase()}
                 </div>
               )}
             </div>

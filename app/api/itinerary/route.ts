@@ -1,3 +1,16 @@
+import { z } from "zod";
+import {
+  erreurItineraireSchema,
+  itineraireSchema,
+} from "@/lib/itineraireSchema";
+
+const requeteSchema = z.object({
+  position_actuelle: z.string().min(1),
+  destination: z.string().min(1),
+  heure: z.string().optional(),
+  jour: z.string().optional(),
+});
+
 const SYSTEM_PROMPT = `# RAKPA — System Prompt v2.0
 # Moteur IA d'itinéraire urbain — Abidjan, Côte d'Ivoire
 
@@ -242,26 +255,25 @@ export async function POST(request: Request) {
     return Response.json({ error: "GROQ_API_KEY not configured" }, { status: 500 });
   }
 
-  let body: unknown;
+  let requestBody: unknown;
   try {
-    body = await request.json();
+    requestBody = await request.json();
   } catch {
     return Response.json({ error: "Invalid JSON body" }, { status: 400 });
   }
 
-  const { position_actuelle, destination, heure, jour } = body as {
-    position_actuelle?: string;
-    destination?: string;
-    heure?: string;
-    jour?: string;
-  };
-
-  if (!position_actuelle || !destination) {
+  const parsedBody = requeteSchema.safeParse(requestBody);
+  if (!parsedBody.success) {
     return Response.json(
-      { error: "position_actuelle et destination sont requis" },
+      {
+        error: "position_actuelle et destination sont requis",
+        details: JSON.stringify(parsedBody.error.flatten()),
+      },
       { status: 400 },
     );
   }
+
+  const { position_actuelle, destination, heure, jour } = parsedBody.data;
 
   const userMessage = JSON.stringify({
     position_actuelle,
@@ -285,6 +297,7 @@ export async function POST(request: Request) {
       temperature: 0.3,
       response_format: { type: "json_object" },
     }),
+    signal: AbortSignal.timeout(20_000),
   });
 
   if (!grokResponse.ok) {
@@ -308,5 +321,20 @@ export async function POST(request: Request) {
     return Response.json({ error: "Grok returned invalid JSON", raw: content }, { status: 502 });
   }
 
-  return Response.json(parsed);
+  if (erreurItineraireSchema.safeParse(parsed).success) {
+    return Response.json(erreurItineraireSchema.parse(parsed));
+  }
+
+  const result = itineraireSchema.safeParse(parsed);
+  if (!result.success) {
+    return Response.json(
+      {
+        error: "Réponse Grok hors format attendu",
+        details: JSON.stringify(result.error.flatten()),
+      },
+      { status: 502 },
+    );
+  }
+
+  return Response.json(result.data);
 }
