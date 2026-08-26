@@ -220,7 +220,7 @@ export default function Home() {
             </div>
             <input
               ref={fromRef}
-              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium placeholder:text-gray-400 py-3"
+              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium text-black dark:text-white placeholder:text-gray-400 py-3"
               placeholder="Depuis… (ou clique GPS)"
               type="text"
               value={from}
@@ -244,7 +244,7 @@ export default function Home() {
             </div>
             <input
               ref={toRef}
-              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium placeholder:text-gray-400 py-3"
+              className="bg-transparent border-none focus:ring-0 w-full text-base font-medium text-black dark:text-white placeholder:text-gray-400 py-3"
               placeholder="Où vas-tu, djaa ?"
               type="text"
               value={to}
